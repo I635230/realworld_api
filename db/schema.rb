@@ -21,5 +21,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_104014) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
-
 end
