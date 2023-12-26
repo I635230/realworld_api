@@ -7,7 +7,7 @@ class AuthenticationsController < ApplicationController
       jwt_token = encode({ user_id: @user.id })
       render status: :created, json: @user.to_json(jwt_token)
     else
-      render status: :unprocessable_entity
+      render status: :unauthorized, json: { error: "Unauthorized" }
     end
   end
 end
