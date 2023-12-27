@@ -19,6 +19,15 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def update
+    @article = Article.find_by(slug: params[:slug])
+    if @article.update(article_params)
+      render status: :created, json: @article.to_json
+    else
+      render status: :unprocessable_entity, json: @article.errors
+    end
+  end
+
   private
     def article_params
       params.require(:article).permit(:title, :description, :body, :favorited, :favoritesCount)
