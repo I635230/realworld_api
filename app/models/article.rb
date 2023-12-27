@@ -20,7 +20,7 @@ class Article < ApplicationRecord
     end
   end
 
-  def to_json()
+  def to_json
     { article: { slug: slug,
                  title: title,
                  description: description,
