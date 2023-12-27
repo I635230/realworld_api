@@ -3,6 +3,11 @@ class ArticlesController < ApplicationController
 
   before_action :authorized, only: %i[create]
 
+  def show
+    @article = Article.find_by(slug: params[:slug])
+    render status: :ok, json: @article.to_json
+  end
+
   def create
     @user = User.find_by(id: @user_id)
     @article = @user.articles.new(article_params)
