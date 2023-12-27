@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include JwtAuthenticator
+
   def authorized
     jwt_token = request.headers["Authorization"].split(" ").last
     if can_decode?(jwt_token)

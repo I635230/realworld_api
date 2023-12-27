@@ -1,6 +1,4 @@
 class ArticlesController < ApplicationController
-  include JwtAuthenticator
-
   before_action :authorized, only: %i[create update delete]
 
   def show
