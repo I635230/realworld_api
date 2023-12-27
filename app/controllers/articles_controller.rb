@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   include JwtAuthenticator
 
-  before_action :authorized, only: %i[create]
+  before_action :authorized, only: %i[create update delete]
 
   def show
     @article = Article.find_by(slug: params[:slug])
@@ -22,10 +22,16 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find_by(slug: params[:slug])
     if @article.update(article_params)
+      @article.set_slug
       render status: :created, json: @article.to_json
     else
       render status: :unprocessable_entity, json: @article.errors
     end
+  end
+
+  def destroy
+    Article.find_by(slug: params[:slug]).delete
+    render status: :ok
   end
 
   private
