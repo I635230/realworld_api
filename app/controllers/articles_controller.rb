@@ -10,8 +10,9 @@ class ArticlesController < ApplicationController
 
   def create
     @user = User.find_by(id: @user_id)
-    @article = @user.articles.new(article_params)
-    @article.set_slug
+    @article = @user.articles.build(article_params)
+    @article.set_tags(params[:article][:tagList])
+
     if @article.save
       render status: :created, json: @article.to_json
     else
@@ -22,7 +23,6 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find_by(slug: params[:slug])
     if @article.update(article_params)
-      @article.set_slug
       render status: :created, json: @article.to_json
     else
       render status: :unprocessable_entity, json: @article.errors
