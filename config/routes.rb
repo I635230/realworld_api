@@ -6,5 +6,6 @@ Rails.application.routes.draw do
     resources :users, only: %i[create]
     resources :articles, param: :slug, only: %i[show create update destroy]
     resources :tags, only: %i[index]
+    resources :profiles, param: :username, only: %i[show]
   end
 end

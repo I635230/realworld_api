@@ -21,6 +21,13 @@ class User < ApplicationRecord
               image: image } }
   end
 
+  def to_profile(current_user)
+    { profile: { username: username, 
+                 bio: bio, 
+                 image: image, 
+                 following: current_user.nil? ? false : current_user.following?(self) } }
+  end
+
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
