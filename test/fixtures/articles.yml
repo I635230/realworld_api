@@ -1,9 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  title: MyString
-  slug: MyString
-
-two:
-  title: MyString
-  slug: MyString
+dragon:
+  title: "how to train dragon"
+  slug: "how-to-train-dragon"
+  description: "carefully"
+  body: "slow and slow"
+  favorited: false
+  favoritesCount: 0
+  created_at: <%= 10.minutes.ago %>
+  user: sakana
