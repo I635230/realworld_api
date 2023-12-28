@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     resources :tags, only: %i[index]
     resources :profiles, param: :username, only: %i[show] do
       member do
-        post :follow
+        post :follow, to: 'profiles#follow'
+        delete :follow, to: 'profiles#unfollow'
       end
     end
   end
