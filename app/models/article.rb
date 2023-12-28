@@ -12,6 +12,7 @@ class Article < ApplicationRecord
   validates :user_id, presence: true
 
   def set_tags(tagList)
+    return tags if tagList.nil?
     tagList.each do |name|
       if (tag = Tag.find_by(name: name))
       elsif (tag = Tag.new(name: name))

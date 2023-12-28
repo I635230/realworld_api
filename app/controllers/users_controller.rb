@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   before_action :authorized, only: %i[show update]
 
   # 特定のユーザーではなく、current_userの表示のみ
