@@ -3,6 +3,8 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = Article.all
+    @articles = Article.joins(:tags).where(tags: {name: "#{params[:tag]}"}) unless params[:tag].nil?
+
     render status: :ok, json: { 
       articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer), 
       articlesCount: @articles.size

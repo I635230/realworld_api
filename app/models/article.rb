@@ -3,6 +3,8 @@ class Article < ApplicationRecord
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
 
+  default_scope -> { order(created_at: :desc) }  
+
   before_save { self.slug = title.tr(" ", "-") }
   before_update { self.slug = title.tr(" ", "-") }
 
