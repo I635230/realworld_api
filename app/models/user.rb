@@ -13,21 +13,6 @@ class User < ApplicationRecord
   validates :username, presence: true
   has_secure_password
 
-  def to_json(jwt_token = "")
-    { user: { email: email,
-              token: jwt_token,
-              username: username,
-              bio: bio,
-              image: image } }
-  end
-
-  def to_profile(current_user)
-    { profile: { username: username, 
-                 bio: bio, 
-                 image: image, 
-                 following: current_user.nil? ? false : current_user.following?(self) } }
-  end
-
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
