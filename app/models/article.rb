@@ -20,19 +20,4 @@ class Article < ApplicationRecord
       self.tags << tag
     end
   end
-
-  def to_json
-    { article: { slug: slug,
-                 title: title,
-                 description: description,
-                 body: body,
-                 tagList: tags.map(&:name),
-                 createdAt: created_at,
-                 updatedAt: updated_at,
-                 favorited: favorited,
-                 favoritesCount: favoritesCount,
-                 author: { username: user.username,
-                           bio: user.bio,
-                           image: user.image } } } # followingは一旦後回し
-  end
 end
