@@ -7,3 +7,13 @@ dragon:
   favoritesCount: 0
   created_at: <%= 10.minutes.ago %>
   user: sakana
+
+dog:
+  title: "how to train dog"
+  slug: "how-to-train-dog"
+  description: "easy"
+  body: "fast and fast"
+  favorited: false
+  favoritesCount: 0
+  created_at: <%= 20.minutes.ago %>
+  user: sakana

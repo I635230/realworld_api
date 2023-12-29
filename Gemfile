@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.2"
 
+# serializers
+gem "active_model_serializers"
+
 # Json Web Token for Authorization
 gem "jwt"
 
