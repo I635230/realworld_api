@@ -3,8 +3,18 @@ class ArticleSerializer < ActiveModel::Serializer
 
   has_one :user, key: :author, serializer: AuthorSerializer
 
+  def initialize(object, options = {})
+    super(object, options)
+    @tagFilterName = options[:tagFilterName]
+  end
+
   def tagList
-    object.tags.map(&:name)
+    tagList = object.tags.map(&:name)
+    if @tagFilterName.nil?
+      tagList
+    else
+      [tagList.delete(@tagFilterName)] + tagList
+    end
   end
 
   def createdAt

@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
     @articles = Article.where(id: ids)
 
     render status: :ok, json: { 
-      articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer), 
+      articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer, tagFilterName: params[:tag]), 
       articlesCount: @articles.size
     }
   end
