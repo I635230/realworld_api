@@ -23,6 +23,6 @@ class CommentsController < ApplicationController
 
   def destroy
     Comment.find_by(id: params[:id]).delete
-    render status: :ok
+    render status: :no_content
   end
 end

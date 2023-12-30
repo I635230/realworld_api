@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
-  before_action :certificated, only: %i[create update delete]
-  before_action :authorized, only: %i[create update delete]
+  before_action :certificated, only: %i[create update destroy]
+  before_action :authorized, only: %i[create update destroy]
 
   def index
     # 存在しない項目には、ワイルドカードを代入
@@ -49,7 +49,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     Article.find_by(slug: params[:slug]).delete
-    render status: :ok
+    render status: :no_content
   end
 
   private
