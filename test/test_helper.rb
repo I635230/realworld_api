@@ -13,4 +13,7 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def header_token(user)
+    { "Authorization": "Token #{ encode({ user_id: user.id })}" }
+  end
 end
