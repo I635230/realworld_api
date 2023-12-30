@@ -8,18 +8,18 @@ class UsersController < ApplicationController
     render status: :ok, json: @user, serializer: UserSerializer, root: "user", adapter: :json
   end
 
-  def update
-    @user = User.find_by(id: @user_id)
-    if @user.update(user_params)
+  def create
+    @user = User.new(user_params)
+    if @user.save
       render status: :created, json: @user, serializer: UserSerializer, root: "user", adapter: :json
     else
       render status: :unprocessable_entity, json: @user.errors
     end
   end
 
-  def create
-    @user = User.new(user_params)
-    if @user.save
+  def update
+    @user = User.find_by(id: @user_id)
+    if @user.update(user_params)
       render status: :created, json: @user, serializer: UserSerializer, root: "user", adapter: :json
     else
       render status: :unprocessable_entity, json: @user.errors
