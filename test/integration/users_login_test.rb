@@ -6,6 +6,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
 
   test "invalidな情報でログインできない" do
+    post login_path, params: { user: { email: "invalid", password: "" } }
+    assert_response :unauthorized
   end
 
   test "validな情報でログインできる" do
