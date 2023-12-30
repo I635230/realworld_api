@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :certificated, only: %i[show follow unfollow]
-  before_action :authorized, only: %i[show follow unfollow]
+  before_action :authorized, only: %i[follow unfollow]
 
   def show
     @current_user = User.find_by(id: @user_id)
