@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  before_action :certificated, only: %i[create update delete]
   before_action :authorized, only: %i[create update delete]
 
   def index
