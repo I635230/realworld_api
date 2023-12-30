@@ -34,7 +34,7 @@ class ArticlesController < ApplicationController
     if @article.save
       render status: :created, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json
     else
-      render stauts: :unprocessable_entity, json: @article.errors
+      render status: :unprocessable_entity, json: @article.errors
     end
   end
 
