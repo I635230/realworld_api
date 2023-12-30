@@ -5,13 +5,14 @@ class ArticlesController < ApplicationController
     # 存在しない項目には、ワイルドカードを代入
     author = params[:author] || "%"
     tag = params[:tag] || "%"
+    limit = params[:limit] || 20
 
     # すべてのテーブルをjoinして、絞り込みを行った結果のid
     ids = Article.joins(:user, :tags).where("users.username LIKE ?", "#{author}")
                                      .where("tags.name LIKE ?", "#{tag}")
                                      .distinct.pluck(:id)
 
-    @articles = Article.where(id: ids)
+    @articles = Article.where(id: ids).paginate(page: params[:page], per_page: limit)
 
     render status: :ok, json: { 
       articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer, tagFilterName: params[:tag]), 
