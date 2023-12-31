@@ -6,6 +6,7 @@ class ArticleSerializer < ActiveModel::Serializer
   def initialize(object, options = {})
     super(object, options)
     @tagFilterName = options[:tagFilterName]
+    @current_user = options[:current_user]
   end
 
   def tagList
@@ -23,5 +24,13 @@ class ArticleSerializer < ActiveModel::Serializer
 
   def updatedAt
     object.updated_at
+  end
+
+  def favorited
+    object.favorited?(@current_user)
+  end
+
+  def favoritesCount
+    object.fav_users.count
   end
 end

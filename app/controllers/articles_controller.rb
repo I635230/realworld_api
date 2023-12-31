@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
-  before_action :certificated, only: %i[create update destroy]
-  before_action :authorized, only: %i[create update destroy]
+  before_action :certificated, only: %i[create update destroy favorite unfavorite]
+  before_action :authorized, only: %i[create update destroy favorite unfavorite]
 
   def index
     # 存在しない項目には、ワイルドカードを代入
@@ -52,8 +52,22 @@ class ArticlesController < ApplicationController
     render status: :no_content
   end
 
+  def favorite
+    @user = User.find_by(id: @user_id)
+    @article = Article.find_by(slug: params[:slug])
+    @user.favorite(@article)
+    render status: :created, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json, current_user: @user
+  end
+
+  def unfavorite
+    @user = User.find_by(id: @user_id)
+    @article = Article.find_by(slug: params[:slug])
+    @user.unfavorite(@article)
+    render status: :ok, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json, current_user: @user
+  end
+
   private
     def article_params
-      params.require(:article).permit(:title, :description, :body, :favorited, :favoritesCount)
+      params.require(:article).permit(:title, :description, :body)
     end
 end

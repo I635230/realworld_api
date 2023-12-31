@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :comments
+  has_many :favorites, dependent: :destroy
+  has_many :fav_articles, through: :favorites, source: :article
 
   validates :email, presence: true
   validates :username, presence: true
@@ -31,5 +33,18 @@ class User < ApplicationRecord
 
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  # favorite関係のメソッド
+  def favorite(article)
+    fav_articles << article
+  end
+
+  def unfavorite(article)
+    fav_articles.delete(article)
+  end
+
+  def favorite?(article)
+    fav_articles.include?(article)
   end
 end
