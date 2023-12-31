@@ -19,6 +19,10 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "offset" do
-    get articles_path({offset: 2}), headers: header_token(@user)
+    get articles_path({offset: 1}), headers: header_token(@user)
+  end
+
+  test "feed" do
+    get feed_articles_path, headers: header_token(@user)
   end
 end

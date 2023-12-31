@@ -11,3 +11,10 @@ fish:
   password_digest: <%= User.digest('password') %>
   bio: null
   image: null
+
+uo:
+  username: uo
+  email: uo@example.com
+  password_digest: <%= User.digest('password') %>
+  bio: null
+  image: null

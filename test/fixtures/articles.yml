@@ -21,3 +21,11 @@ fox:
   body: "hoge hoge"
   created_at: <%= 15.minutes.ago %>
   user: fish
+
+bear:
+  title: "how to train bear"
+  slug: "how-to-train-bear"
+  description: "fuga"
+  body: "fuga fuga"
+  created_at: <%= 15.minutes.ago %>
+  user: fish

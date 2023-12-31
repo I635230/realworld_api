@@ -10,6 +10,9 @@ Rails.application.routes.draw do
         post :favorite, to: "articles#favorite"
         delete :favorite, to: "articles#unfavorite"
       end
+      collection do
+        get :feed, to: "articles#feed"
+      end
     end
     resources :tags, only: %i[index]
     resources :profiles, param: :username, only: %i[show] do

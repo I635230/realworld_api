@@ -1,0 +1,3 @@
+relation1:
+  follower: <%= User.find_by(username: "sakana") %>
+  followed: <%= User.find_by(username: "uo") %>
