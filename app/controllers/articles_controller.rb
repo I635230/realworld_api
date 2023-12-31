@@ -3,15 +3,17 @@ class ArticlesController < ApplicationController
   before_action :authorized, only: %i[create update destroy favorite unfavorite]
 
   def index
-    # 存在しない項目には、ワイルドカードを代入
-    author = params[:author] || "%"
-    tag = params[:tag] || "%"
     limit = params[:limit] || 20
 
-    # すべてのテーブルをjoinして、絞り込みを行った結果のid
-    ids = Article.joins(:user, :tags).where("users.username LIKE ?", "#{author}")
-                                     .where("tags.name LIKE ?", "#{tag}")
-                                     .distinct.pluck(:id)
+    if !params[:author].nil?
+      ids = Article.joins(:user).where("users.username LIKE ?", "#{params[:author]}")
+    elsif !params[:tag].nil?
+      ids = Article.joins(:tags).where("tags.name LIKE ?", "#{params[:tag]}")
+    elsif !params[:favorited].nil?
+      ids = Article.joins(:favorites).where("favorites.user_id LIKE ?", "#{User.find_by(username: params[:favorited]).id}")
+    else
+      ids = Article.all
+    end
 
     @articles = Article.where(id: ids).paginate(page: params[:page], per_page: limit)
 
