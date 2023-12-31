@@ -48,7 +48,10 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    Article.find_by(slug: params[:slug]).delete
+    @article = Article.find_by(slug: params[:slug])
+    @current_user = User.find_by(id: @user_id)
+    correct_user(@article) and return
+    @article.destroy
     render status: :no_content
   end
 

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :certificated, only: %i[index create delete]
-  before_action :authorized, only: %i[create delete]
+  before_action :certificated, only: %i[index create destroy]
+  before_action :authorized, only: %i[create destroy]
 
   def index
     @article = Article.find_by(slug: params[:slug])
@@ -22,7 +22,10 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    Comment.find_by(id: params[:id]).delete
+    @comment = Comment.find_by(id: params[:id])
+    @current_user = User.find_by(id: @user_id)
+    correct_user(@comment) and return # renderしたらreturnしないとdouble renderエラーになる
+    @comment.destroy
     render status: :no_content
   end
 end

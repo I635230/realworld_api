@@ -17,4 +17,9 @@ class ApplicationController < ActionController::API
       render status: :unauthorized, json: { error: "Unauthorized" }
     end
   end
+
+  # ログインユーザーと記事/コメントを書いた人物が同じかを確かめる
+  def correct_user(letter)
+    render status: :forbidden, json: { error: "Forbidden" } unless @current_user == letter.user
+  end
 end
