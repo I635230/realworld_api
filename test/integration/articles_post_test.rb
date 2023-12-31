@@ -5,7 +5,7 @@ class ArticlesPostTest < ActionDispatch::IntegrationTest
     @user = users(:sakana)
   end
 
-  test "認証なしでpostできない" do
+  test "認可なしでpostできない" do
     assert_no_difference "Article.count" do
       post articles_path, params: { article: { title: "title example",
                                                description: "description example",

@@ -6,7 +6,7 @@ class ArticlesUpdateTest < ActionDispatch::IntegrationTest
     @article = articles(:dragon)
   end
 
-  test "認証なしでupdateできない" do
+  test "認可なしでupdateできない" do
     put article_path(@article.slug), params: { article: { title: "neo dragon", 
                                                           description: "neo description", 
                                                           body: "neo body" } }
