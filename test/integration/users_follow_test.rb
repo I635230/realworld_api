@@ -6,13 +6,13 @@ class UsersFollowTest < ActionDispatch::IntegrationTest
     @some_user = users(:fish)
   end
 
-  test "認証なしでfollowできない" do
+  test "認可なしでfollowできない" do
     post follow_profile_path(@some_user.username)
     assert_response :unauthorized
     assert_not @current_user.reload.following?(@some_user)
   end
 
-  test "認証なしでunfollowできない" do
+  test "認可なしでunfollowできない" do
     post follow_profile_path(@some_user.username), headers: header_token(@current_user)
     delete follow_profile_path(@some_user.reload.username)
     assert_response :unauthorized

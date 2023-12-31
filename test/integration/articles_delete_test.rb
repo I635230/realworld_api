@@ -6,12 +6,12 @@ class ArticlesDeleteTest < ActionDispatch::IntegrationTest
     @article = articles(:dragon)
   end
 
-  test "認証なしでdeleteできない" do
+  test "認可なしでdeleteできない" do
     delete article_path(@article.slug)
     assert_response :unauthorized
   end
   
-  test "認証ありでdeleteできる" do
+  test "認可ありでdeleteできる" do
     delete article_path(@article.slug), headers: header_token(@user)
     assert_response :no_content
   end
