@@ -2,3 +2,8 @@ yellow:
   body: "This color is yellow. "
   article: dragon
   user: sakana
+
+blue:
+  body: "This color is blue. "
+  article: dragon
+  user: fish
