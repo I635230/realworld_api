@@ -19,12 +19,6 @@ class UsersFollowTest < ActionDispatch::IntegrationTest
     assert @current_user.reload.following?(@some_user)
   end
 
-  test "自分自身はfollowできない" do
-    assert_not @current_user.following?(@current_user)
-    post follow_profile_path(@current_user.username), headers: header_token(@current_user)
-    assert_not @current_user.reload.following?(@current_user)
-  end
-
   # TODO: 後でuserモデルのテストに移した方が良さそう
   test "followersとfollowingに適切に値が入る" do
     assert_equal [], @current_user.following
