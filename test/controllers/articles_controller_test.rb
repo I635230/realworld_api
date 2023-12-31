@@ -17,4 +17,8 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     @article.set_tags(@tagList)
     get articles_path, headers: header_token(@user)
   end
+
+  test "offset" do
+    get articles_path({offset: 2}), headers: header_token(@user)
+  end
 end

@@ -3,20 +3,7 @@ class ArticlesController < ApplicationController
   before_action :authorized, only: %i[create update destroy favorite unfavorite]
 
   def index
-    limit = params[:limit] || 20
-
-    if !params[:author].nil?
-      ids = Article.joins(:user).where("users.username LIKE ?", "#{params[:author]}")
-    elsif !params[:tag].nil?
-      ids = Article.joins(:tags).where("tags.name LIKE ?", "#{params[:tag]}")
-    elsif !params[:favorited].nil?
-      ids = Article.joins(:favorites).where("favorites.user_id LIKE ?", "#{User.find_by(username: params[:favorited]).id}")
-    else
-      ids = Article.all
-    end
-
-    @articles = Article.where(id: ids).paginate(page: params[:page], per_page: limit)
-
+    filter_articles
     render status: :ok, json: { 
       articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer, tagFilterName: params[:tag]), 
       articlesCount: @articles.size
@@ -74,5 +61,23 @@ class ArticlesController < ApplicationController
   private
     def article_params
       params.require(:article).permit(:title, :description, :body)
+    end
+
+    def filter_articles
+      limit = params[:limit] || 20
+
+      if !params[:author].nil?
+        ids = Article.joins(:user).where("users.username LIKE ?", "#{params[:author]}").map(&:id)
+      elsif !params[:tag].nil?
+        ids = Article.joins(:tags).where("tags.name LIKE ?", "#{params[:tag]}").map(&:id)
+      elsif !params[:favorited].nil?
+        ids = Article.joins(:favorites).where("favorites.user_id LIKE ?", "#{User.find_by(username: params[:favorited]).id}").map(&:id)
+      elsif !params[:offset].nil?
+        ids = Article.all.slice(params[:offset].to_i..-1).map(&:id)
+      else
+        ids = Article.all.map(&:id)
+      end
+  
+      @articles = Article.where(id: ids).paginate(page: params[:page], per_page: limit)
     end
 end
