@@ -13,3 +13,11 @@ dog:
   body: "fast and fast"
   created_at: <%= 20.minutes.ago %>
   user: sakana
+
+fox:
+  title: "how to train fox"
+  slug: "how-to-train-fox"
+  description: "hoge"
+  body: "hoge hoge"
+  created_at: <%= 15.minutes.ago %>
+  user: fish
