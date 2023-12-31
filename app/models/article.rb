@@ -3,6 +3,8 @@ class Article < ApplicationRecord
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :fav_users, through: :favorites, source: :user
 
   default_scope -> { order(created_at: :desc) }  
 
@@ -22,5 +24,9 @@ class Article < ApplicationRecord
       end
       self.tags << tag
     end
+  end
+
+  def favorited?(user)
+    fav_users.include?(user)
   end
 end

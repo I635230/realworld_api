@@ -5,8 +5,6 @@ class CreateArticles < ActiveRecord::Migration[7.0]
       t.string :slug
       t.string :description
       t.text :body
-      t.boolean :favorited, default: false, null: false
-      t.integer :favoritesCount, default: 0
       t.references :user, null: false, foreign_key: true
 
       t.timestamps
