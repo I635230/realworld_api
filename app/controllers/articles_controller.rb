@@ -18,8 +18,8 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @user = User.find_by(id: @user_id)
-    @article = @user.articles.build(article_params)
+    @current_user
+    @article = @current_user.articles.build(article_params)
     @article.set_tags(params[:article][:tagList])
 
     if @article.save
@@ -40,29 +40,25 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find_by(slug: params[:slug])
-    @current_user = User.find_by(id: @user_id)
     correct_user(@article) and return
     @article.destroy
     render status: :no_content
   end
 
   def favorite
-    @user = User.find_by(id: @user_id)
     @article = Article.find_by(slug: params[:slug])
-    @user.favorite(@article)
-    render status: :created, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json, current_user: @user
+    @current_user.favorite(@article)
+    render status: :created, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json, current_user: @current_user
   end
 
   def unfavorite
-    @user = User.find_by(id: @user_id)
     @article = Article.find_by(slug: params[:slug])
-    @user.unfavorite(@article)
-    render status: :ok, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json, current_user: @user
+    @current_user.unfavorite(@article)
+    render status: :ok, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json, current_user: @current_user
   end
 
   def feed
-    @user = User.find_by(id: @user_id)
-    ids = Article.joins(:user).where("users.id IN (?)", @user.following.map(&:id)).map(&:id)
+    ids = Article.joins(:user).where("users.id IN (?)", @current_user.following.map(&:id)).map(&:id)
 
     common_filter(ids)
     render status: :ok, json: { 
