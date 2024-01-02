@@ -8,13 +8,15 @@ class Article < ApplicationRecord
 
   default_scope -> { order(created_at: :desc) }  
 
-  before_save { self.slug = title.tr(" ", "-") }
-  before_update { self.slug = title.tr(" ", "-") }
+  before_validation { self.slug = title.tr(" ", "-") }
 
   validates :title, presence: true
   validates :description, presence: true
   validates :body, presence: true
   validates :user_id, presence: true
+
+  EXCLUDE_SYMBOL_REGEX = /\A[^!\#$'()*+,\/:;=?@\[\]]+\z/
+  validates :slug, presence: true, uniqueness: true, format: { with: EXCLUDE_SYMBOL_REGEX }
 
   def set_tags(tagList)
     return tags if tagList.nil?
