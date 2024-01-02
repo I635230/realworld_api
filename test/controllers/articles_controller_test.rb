@@ -5,18 +5,12 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     @user = users(:sakana)
     @article = articles(:dragon)
   end
+end
 
+class SingleArticleTest < ArticlesControllerTest
   test "Articleを取得できる" do
     get article_path(@article.slug), headers: header_token(@user)
     assert_response :ok
-  end
-
-  test "offset" do
-    get articles_path({offset: 1}), headers: header_token(@user)
-  end
-
-  test "feed" do
-    get feed_articles_path, headers: header_token(@user)
   end
 end
 
@@ -58,6 +52,31 @@ class MultiArticleTest < ArticlesControllerTest
     get articles_path, headers: header_token(@user)
     slug1 = JSON.parse(response.body)["articles"][1]["slug"]
     get articles_path({offset: 1}), headers: header_token(@user)
+    assert_response :ok
+    slug2 = JSON.parse(response.body)["articles"][0]["slug"]
+    assert_equal slug1, slug2
+  end
+end
+
+class FeedArticlesTest < ArticlesControllerTest
+  test "Feed Articleを取得できる" do
+    get feed_articles_path, headers: header_token(@user)
+    assert_response :ok
+    JSON.parse(response.body)["articles"].each do |article|
+      assert_equal "uo", article["author"]["username"]
+    end
+  end
+
+  test "Limitが機能している" do
+    get feed_articles_path({limit: 1}), headers: header_token(@user)
+    assert_response :ok
+    assert_equal 1, JSON.parse(response.body)["articles"].size
+  end
+
+  test "Offsetが機能している" do
+    get feed_articles_path, headers: header_token(@user)
+    slug1 = JSON.parse(response.body)["articles"][1]["slug"]
+    get feed_articles_path({offset: 1}), headers: header_token(@user)
     assert_response :ok
     slug2 = JSON.parse(response.body)["articles"][0]["slug"]
     assert_equal slug1, slug2
