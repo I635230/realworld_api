@@ -1,0 +1,20 @@
+sakana:
+  username: sakana
+  email: sakana@example.com
+  password_digest: <%= User.digest('password') %>
+  bio: null
+  image: null
+
+fish:
+  username: fish
+  email: fish@example.com
+  password_digest: <%= User.digest('password') %>
+  bio: null
+  image: null
+
+uo:
+  username: uo
+  email: uo@example.com
+  password_digest: <%= User.digest('password') %>
+  bio: null
+  image: null

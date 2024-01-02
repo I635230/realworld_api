@@ -1,0 +1,55 @@
+dragon:
+  title: "how to train dragon"
+  slug: "how-to-train-dragon"
+  description: "carefully"
+  body: "slow and slow"
+  created_at: <%= 10.minutes.ago %>
+  user: sakana
+
+dog:
+  title: "how to train dog"
+  slug: "how-to-train-dog"
+  description: "easy"
+  body: "fast and fast"
+  created_at: <%= 20.minutes.ago %>
+  user: sakana
+
+fox:
+  title: "how to train fox"
+  slug: "how-to-train-fox"
+  description: "hoge"
+  body: "hoge hoge"
+  created_at: <%= 15.minutes.ago %>
+  user: fish
+
+bear:
+  title: "how to train bear"
+  slug: "how-to-train-bear"
+  description: "fuga"
+  body: "fuga fuga"
+  created_at: <%= 15.minutes.ago %>
+  user: fish
+
+recent:
+  title: "recent"
+  slug: "recent"
+  description: "recent"
+  body: "recent"
+  created_at: <%= Time.zone.now %>
+  user: sakana
+
+panda:
+  title: "how to train panda"
+  slug: "how-to-train-panda"
+  description: "easy"
+  body: "fast and fast"
+  created_at: <%= 20.minutes.ago %>
+  user: uo
+
+cat:
+  title: "how to train cat"
+  slug: "how-to-train-cat"
+  description: "easy"
+  body: "fast and fast"
+  created_at: <%= 20.minutes.ago %>
+  user: uo
