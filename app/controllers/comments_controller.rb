@@ -12,7 +12,6 @@ class CommentsController < ApplicationController
 
   def create
     @article = Article.find_by(slug: params[:slug])
-    @current_user = User.find_by(id: @user_id)
     @comment = @article.comments.build(body: params[:comment][:body], user: @current_user)
     if @comment.save
       render status: :created, json: @comment, serializer: CommentSerializer, root: "comment", adapter: :json
@@ -23,7 +22,6 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find_by(id: params[:id])
-    @current_user = User.find_by(id: @user_id)
     correct_user(@comment) and return # renderしたらreturnしないとdouble renderエラーになる
     @comment.destroy
     render status: :no_content

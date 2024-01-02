@@ -5,14 +5,17 @@ class ApplicationController < ActionController::API
   def certificated
     if auth = request.headers["Authorization"]
       @jwt_token = auth.split(" ").last
-      @user_id = decode(@jwt_token)["user_id"] if can_decode?(@jwt_token)
+      if can_decode?(@jwt_token)
+        user_id = decode(@jwt_token)["user_id"]
+        @current_user = User.find_by(id: user_id)
+      end
     end
   end
 
   # 認可：ログインしていないときにエラーを吐く
   def authorized
     if can_decode?(@jwt_token)
-      render status: :unauthorized, json: { error: "Unauthorized" } unless User.find_by(id: @user_id)
+      render status: :unauthorized, json: { error: "Unauthorized" } unless @current_user
     else
       render status: :unauthorized, json: { error: "Unauthorized" }
     end

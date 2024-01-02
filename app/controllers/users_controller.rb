@@ -4,8 +4,7 @@ class UsersController < ApplicationController
 
   # 特定のユーザーではなく、current_userの表示のみ
   def show
-    @user = User.find_by(id: @user_id)
-    render status: :ok, json: @user, serializer: UserSerializer, root: "user", adapter: :json
+    render status: :ok, json: @current_user, serializer: UserSerializer, root: "user", adapter: :json
   end
 
   def create
@@ -18,11 +17,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by(id: @user_id)
-    if @user.update(user_params)
-      render status: :created, json: @user, serializer: UserSerializer, root: "user", adapter: :json
+    if @current_user.update(user_params)
+      render status: :created, json: @current_user, serializer: UserSerializer, root: "user", adapter: :json
     else
-      render status: :unprocessable_entity, json: @user.errors
+      render status: :unprocessable_entity, json: @current_user.errors
     end
   end
 
