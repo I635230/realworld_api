@@ -8,7 +8,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "認証なしでshowアクションにアクセスできない" do
     get user_path
     assert_response :unauthorized
-  end  
+  end
 
   test "認証ありでshowアクションにアクセスできる" do
     get user_path, headers: header_token(@user)

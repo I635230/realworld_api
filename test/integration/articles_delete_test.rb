@@ -13,10 +13,10 @@ class ArticlesDeleteTest < ActionDispatch::IntegrationTest
     end
     assert_response :unauthorized
   end
-  
+
   test "他人の記事を削除できない" do
     assert_no_difference "Article.count" do
-      delete article_path(@other_user_article.slug), headers: header_token(@user)    
+      delete article_path(@other_user_article.slug), headers: header_token(@user)
     end
     assert_response :forbidden
   end

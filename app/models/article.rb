@@ -6,7 +6,7 @@ class Article < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :fav_users, through: :favorites, source: :user
 
-  default_scope -> { order(created_at: :desc) }  
+  default_scope -> { order(created_at: :desc) }
 
   before_validation { self.slug = title.tr(" ", "-") }
 

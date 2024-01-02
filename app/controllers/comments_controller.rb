@@ -5,8 +5,8 @@ class CommentsController < ApplicationController
   def index
     @article = Article.find_by(slug: params[:slug])
     @comments = @article.comments
-    render status: :ok, json: { 
-      comments: ActiveModel::Serializer::CollectionSerializer.new(@comments, serializer: CommentSerializer, current_user: @current_user), 
+    render status: :ok, json: {
+      comments: ActiveModel::Serializer::CollectionSerializer.new(@comments, serializer: CommentSerializer, current_user: @current_user),
     }
   end
 

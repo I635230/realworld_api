@@ -20,7 +20,7 @@ class CommentsPostTest < ActionDispatch::IntegrationTest
     end
     assert_response :created
   end
-  
+
   test "他人の記事にコメントできる" do
     assert_difference "@other_user_article.comments.count", 1 do
       post comments_path(@other_user_article.slug), params: { comment: { body: "コメントだよー" } }, headers: header_token(@user)
