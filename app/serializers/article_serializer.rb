@@ -1,7 +1,7 @@
 class ArticleSerializer < ActiveModel::Serializer
   attributes %i[slug title description body tagList createdAt updatedAt favorited favoritesCount]
 
-  has_one :user, key: :author, serializer: AuthorSerializer
+  has_one :user, key: :author, serializer: ProfileSerializer, current_user: @current_user
 
   def initialize(object, options = {})
     super(object, options)

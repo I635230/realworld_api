@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     @article = Article.find_by(slug: params[:slug])
     @comments = @article.comments
     render status: :ok, json: { 
-      comments: ActiveModel::Serializer::CollectionSerializer.new(@comments, serializer: CommentSerializer), 
+      comments: ActiveModel::Serializer::CollectionSerializer.new(@comments, serializer: CommentSerializer, current_user: @current_user), 
     }
   end
 
@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     @article = Article.find_by(slug: params[:slug])
     @comment = @article.comments.build(body: params[:comment][:body], user: @current_user)
     if @comment.save
-      render status: :created, json: @comment, serializer: CommentSerializer, root: "comment", adapter: :json
+      render status: :created, json: @comment, serializer: CommentSerializer, root: "comment", adapter: :json, current_user: @current_use
     else
       render status: :unprocessable_entity, json: @comment.errors
     end

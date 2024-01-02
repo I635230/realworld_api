@@ -7,3 +7,8 @@ blue:
   body: "This color is blue. "
   article: dragon
   user: fish
+
+green:
+  body: "This color is green. "
+  article: dragon
+  user: uo
