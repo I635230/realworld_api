@@ -37,3 +37,19 @@ recent:
   body: "recent"
   created_at: <%= Time.zone.now %>
   user: sakana
+
+panda:
+  title: "how to train panda"
+  slug: "how-to-train-panda"
+  description: "easy"
+  body: "fast and fast"
+  created_at: <%= 20.minutes.ago %>
+  user: uo
+
+cat:
+  title: "how to train cat"
+  slug: "how-to-train-cat"
+  description: "easy"
+  body: "fast and fast"
+  created_at: <%= 20.minutes.ago %>
+  user: uo
