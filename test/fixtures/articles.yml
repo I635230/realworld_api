@@ -29,3 +29,11 @@ bear:
   body: "fuga fuga"
   created_at: <%= 15.minutes.ago %>
   user: fish
+
+recent:
+  title: "recent"
+  slug: "recent"
+  description: "recent"
+  body: "recent"
+  created_at: <%= Time.zone.now %>
+  user: sakana
