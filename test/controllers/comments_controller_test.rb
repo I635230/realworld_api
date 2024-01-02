@@ -15,4 +15,9 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     get comments_path(@article.slug), headers: header_token(@user)
     assert_response :ok
   end
+
+  test "コメントのauthorにfollowingが含まれている" do
+    get comments_path(@article.slug), headers: header_token(@user)
+    JSON.parse(response.body)["comments"][0]["author"].key?("following")
+  end
 end

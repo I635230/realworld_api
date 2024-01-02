@@ -7,14 +7,14 @@ class ArticlesController < ApplicationController
     common_filter(ids)
 
     render status: :ok, json: { 
-      articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer, tagFilterName: params[:tag]), 
+      articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer, tagFilterName: params[:tag], current_user: @current_user), 
       articlesCount: @articles.size
     }
   end
 
   def show
     @article = Article.find_by(slug: params[:slug])
-    render status: :ok, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json
+    render status: :ok, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json, current_user: @current_user
   end
 
   def create
@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
     @article.set_tags(params[:article][:tagList])
 
     if @article.save
-      render status: :created, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json
+      render status: :created, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json, current_user: @current_user
     else
       render status: :unprocessable_entity, json: @article.errors
     end
@@ -32,7 +32,7 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find_by(slug: params[:slug])
     if @article.update(article_params)
-      render status: :created, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json
+      render status: :created, json: @article, serializer: ArticleSerializer, root: "article", adapter: :json, current_user: @current_user
     else
       render status: :unprocessable_entity, json: @article.errors
     end
@@ -62,7 +62,7 @@ class ArticlesController < ApplicationController
 
     common_filter(ids)
     render status: :ok, json: { 
-      articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer), 
+      articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer, current_user: @current_user), 
       articlesCount: @articles.size
     }
   end
