@@ -6,8 +6,8 @@ class ArticlesController < ApplicationController
     ids = filter_articles
     common_filter(ids)
 
-    render status: :ok, json: { 
-      articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer, tagFilterName: params[:tag], current_user: @current_user), 
+    render status: :ok, json: {
+      articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer, tagFilterName: params[:tag], current_user: @current_user),
       articlesCount: @articles.size
     }
   end
@@ -18,7 +18,6 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @current_user
     @article = @current_user.articles.build(article_params)
     @article.set_tags(params[:article][:tagList])
 
@@ -61,8 +60,8 @@ class ArticlesController < ApplicationController
     ids = Article.joins(:user).where("users.id IN (?)", @current_user.following.map(&:id)).map(&:id)
 
     common_filter(ids)
-    render status: :ok, json: { 
-      articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer, current_user: @current_user), 
+    render status: :ok, json: {
+      articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer, current_user: @current_user),
       articlesCount: @articles.size
     }
   end
@@ -93,5 +92,6 @@ class ArticlesController < ApplicationController
       else
         ids = Article.all.map(&:id)
       end
+      ids
     end
 end

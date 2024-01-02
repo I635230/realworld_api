@@ -19,7 +19,7 @@ class ArticlesPostTest < ActionDispatch::IntegrationTest
     assert_no_difference "Article.count" do
       post articles_path, params: { article: { title: "",
                                                description: "",
-                                               body: "" } }, 
+                                               body: "" } },
                                                headers: header_token(@user)
     end
     assert_response :unprocessable_entity

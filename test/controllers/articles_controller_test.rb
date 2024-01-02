@@ -21,7 +21,7 @@ class MultiArticleTest < ArticlesControllerTest
   end
 
   test "TagFileterが機能している" do
-    get articles_path({tag: "dragons"}), headers: header_token(@user)
+    get articles_path({ tag: "dragons" }), headers: header_token(@user)
     assert_response :ok
     JSON.parse(response.body)["articles"].each do |article|
       assert article["tagList"].include?("dragons")
@@ -29,7 +29,7 @@ class MultiArticleTest < ArticlesControllerTest
   end
 
   test "AuthorFilterが機能している" do
-    get articles_path({author: "sakana"}), headers: header_token(@user)
+    get articles_path({ author: "sakana" }), headers: header_token(@user)
     assert_response :ok
     JSON.parse(response.body)["articles"].each do |article|
       assert_equal "sakana", article["author"]["username"]
@@ -37,13 +37,13 @@ class MultiArticleTest < ArticlesControllerTest
   end
 
   test "FavoriteFilterが機能している" do
-    get articles_path({favorited: "sakana"}), headers: header_token(@user)
+    get articles_path({ favorited: "sakana" }), headers: header_token(@user)
     assert_response :ok
     assert_equal Favorite.count, JSON.parse(response.body)["articlesCount"]
   end
 
   test "Limitが機能している" do
-    get articles_path({limit: 1}), headers: header_token(@user)
+    get articles_path({ limit: 1 }), headers: header_token(@user)
     assert_response :ok
     assert_equal 1, JSON.parse(response.body)["articles"].size
   end
@@ -51,7 +51,7 @@ class MultiArticleTest < ArticlesControllerTest
   test "Offsetが機能している" do
     get articles_path, headers: header_token(@user)
     slug1 = JSON.parse(response.body)["articles"][1]["slug"]
-    get articles_path({offset: 1}), headers: header_token(@user)
+    get articles_path({ offset: 1 }), headers: header_token(@user)
     assert_response :ok
     slug2 = JSON.parse(response.body)["articles"][0]["slug"]
     assert_equal slug1, slug2
@@ -68,7 +68,7 @@ class FeedArticlesTest < ArticlesControllerTest
   end
 
   test "Limitが機能している" do
-    get feed_articles_path({limit: 1}), headers: header_token(@user)
+    get feed_articles_path({ limit: 1 }), headers: header_token(@user)
     assert_response :ok
     assert_equal 1, JSON.parse(response.body)["articles"].size
   end
@@ -76,7 +76,7 @@ class FeedArticlesTest < ArticlesControllerTest
   test "Offsetが機能している" do
     get feed_articles_path, headers: header_token(@user)
     slug1 = JSON.parse(response.body)["articles"][1]["slug"]
-    get feed_articles_path({offset: 1}), headers: header_token(@user)
+    get feed_articles_path({ offset: 1 }), headers: header_token(@user)
     assert_response :ok
     slug2 = JSON.parse(response.body)["articles"][0]["slug"]
     assert_equal slug1, slug2

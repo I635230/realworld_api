@@ -24,6 +24,6 @@ class UsersFollowTest < ActionDispatch::IntegrationTest
     post follow_profile_path(@some_user.username), headers: header_token(@current_user)
     assert @current_user.reload.following?(@some_user)
     delete follow_profile_path(@some_user.username), headers: header_token(@current_user)
-    assert_not @current_user.reload.following?(@some_user) 
+    assert_not @current_user.reload.following?(@some_user)
   end
 end

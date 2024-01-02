@@ -88,11 +88,11 @@ end
 
 class UserArticleTest < UserTest
   test "Userを削除するとArticleも削除される" do
-    @user.save
-    @user.articles.create!(description: "description", body: "Lorem ipsum", title: "title", slug: "title")
-    assert_difference "Article.count", -1 do
-      @user.destroy
-    end
+  @user.save
+  @user.articles.create!(description: "description", body: "Lorem ipsum", title: "title", slug: "title")
+  assert_difference "Article.count", -1 do
+    @user.destroy
+  end
 end
 end
 
@@ -113,7 +113,7 @@ class UserfollowTest < UserTest
     # unfollow
     @sakana.unfollow(@fish)
     assert_not @sakana.following?(@fish)
-    
+
     # ユーザーは自分自身をフォローできない
     assert_not @sakana.following?(@sakana)
     @sakana.follow(@sakana)
