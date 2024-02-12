@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :certificated, only: %i[create update destroy favorite unfavorite feed]
+  before_action :certificated, only: %i[index create update destroy favorite unfavorite feed]
   before_action :authorized, only: %i[create update destroy favorite unfavorite feed]
 
   def index
@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
 
     render status: :ok, json: {
       articles: ActiveModel::Serializer::CollectionSerializer.new(@articles, serializer: ArticleSerializer, tagFilterName: params[:tag], current_user: @current_user),
-      articlesCount: @articles.size
+      articlesCount: @articles_all_page.size
     }
   end
 
@@ -79,6 +79,7 @@ class ArticlesController < ApplicationController
       ids = ids.slice(offset..-1)
 
       # ページネーション
+      @articles_all_page = Article.where(id: ids)
       @articles = Article.where(id: ids).paginate(page: params[:page], per_page: limit)
     end
 

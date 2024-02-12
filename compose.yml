@@ -10,6 +10,12 @@ services:
       TZ: Asia/Tokyo
     stdin_open: true
     tty: true
+    networks:
+      - mynetwork
 
 volumes:
   data-volume:
+
+networks:
+  mynetwork:
+    external: true
