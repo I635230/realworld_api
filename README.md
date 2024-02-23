@@ -46,3 +46,12 @@ docker-compose run web rails db:migrate
 後は[Endpoints | RealWorld](https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints/)に従って、[http://localhost:3000](http://localhost:3000)にHTTPリクエストを送ってください。
 
 期待されるレスポンスの例は[API Response format | RealWorld](https://realworld-docs.netlify.app/docs/specs/backend-specs/api-response-format/)を参照してください。
+
+## デプロイ
+フロントエンド：https://realworld-lyart.vercel.app
+
+バックエンド：https://list-it-bro.com
+
+に一時的にデプロイしています。
+
+![アーキテクチャ図](/realworld_architecture.drawio.png)

@@ -1,5 +1,5 @@
 module JwtAuthenticator
-  SECRET_KEY = Rails.application.secrets.secret_key_base
+  SECRET_KEY = Rails.application.credentials.secret_key_base
 
   # 暗号化処理
   def encode(payload)
