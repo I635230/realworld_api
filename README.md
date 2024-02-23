@@ -48,10 +48,10 @@ docker-compose run web rails db:migrate
 期待されるレスポンスの例は[API Response format | RealWorld](https://realworld-docs.netlify.app/docs/specs/backend-specs/api-response-format/)を参照してください。
 
 ## デプロイ
-フロントエンド：https://realworld-lyart.vercel.app
+フロントエンド：[削除済み]
 
-バックエンド：https://list-it-bro.com
+バックエンド：[削除済み]
 
-に一時的にデプロイしています。
+~~に一時的にデプロイしています。~~ 削除しました。
 
 ![アーキテクチャ図](/realworld_architecture.drawio.png)
